@@ -31,7 +31,7 @@ public class KnockoutTournament extends Tournament {
     public void playMatches() {
         if(checkPowerofTwo(this.invited.size()) != true) {
         	
-        	System.out.println("The number of invited teams should be of power of two.");
+        	System.err.println("The number of invited teams should be of power of two.");
         	System.exit(1);
         	
         }
@@ -67,8 +67,6 @@ public class KnockoutTournament extends Tournament {
     	
     	//System.out.println(teams);
     		
-    		
-    	
     	
     	return recursiveknockout(tempBrackets);
     	
