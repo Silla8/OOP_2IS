@@ -2,7 +2,7 @@
 package tournament;
 
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.Collections;
 
 
 public class KnockoutTournament extends Tournament {
@@ -36,18 +36,22 @@ public class KnockoutTournament extends Tournament {
         	
         }
         
-        brackets.addAll(this.shuffleTeams(invited));
+        Collections.shuffle(invited);
+        brackets.addAll(invited);
         
         
-        this.winner = recursiveknockout(brackets);
+        playMatches(brackets);
        
         
         
     }
 
-    private Team recursiveknockout(ArrayList<Team> teams) {
+    private void playMatches(ArrayList<Team> teams) {
     	
-    	if(teams.size()==1) return teams.get(0);
+    	if(teams.size()==1) {
+    		this.winner =  teams.get(0);
+    		return;
+    	}
     	
     	ArrayList<Team> tempBrackets = new ArrayList<Team>();
     	
@@ -68,7 +72,7 @@ public class KnockoutTournament extends Tournament {
     	//System.out.println(teams);
     		
     	
-    	return recursiveknockout(tempBrackets);
+    	playMatches(tempBrackets);
     	
     }
     	
@@ -78,34 +82,5 @@ public class KnockoutTournament extends Tournament {
     }
     
     
-    private ArrayList<Team> shuffleTeams(ArrayList<Team> teams){
-    	
-    	int i=0, m=0, n=0;
-    	while(i<teams.size()*5) {
-    		
-    		Random rng = new Random();
-    		
-    		while(m ==  n) {
-    			
-    			m = rng.nextInt(teams.size());
-        		
-        		n = rng.nextInt(teams.size());
-    		}
-    		
-    		
-    	
-    		Team t = teams.get(m);
-    		
-    		teams.set(m, teams.get(n));
-    		
-    		teams.set(n, t);
-    		
-    		m = n = 0;
-    		i++;
-    	
-    		
-    	}
-    	
-    	return teams;
-    }
+    
 }
